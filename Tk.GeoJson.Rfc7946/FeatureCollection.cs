@@ -1,7 +1,7 @@
 ﻿using System.Text.Json.Serialization;
 using Tk.GeoJson.Rfc7946.Geometry;
 
-namespace Tk.GeoJson.Rfc7946.Features;
+namespace Tk.GeoJson.Rfc7946;
 
 /// <summary>
 /// Reporesents a collection of Feature GeoJSON objects.

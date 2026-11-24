@@ -9,19 +9,9 @@ public sealed class LinearRingCoordinates : Collection<Position>, ICoordinates
         Dimensions = 0;
     }
 
-    public LinearRingCoordinates(int numDimensions) : base()
-    {
-        Dimensions = numDimensions;
-    }
-
     public LinearRingCoordinates(IList<Position> items) : base(items)
     {
-        Dimensions = 0;
-    }
-
-    public LinearRingCoordinates(int numDimensions, IList<Position> items) : base(items)
-    {
-        Dimensions = numDimensions;
+        Dimensions = items.Count == 0 ? 0 : items[0].Dimensions;
     }
 
     public int Dimensions { get; private set; }

@@ -9,19 +9,9 @@ public sealed class LineStringCoordinates : Collection<Position>, ICoordinates
         Dimensions = 0;
     }
 
-    public LineStringCoordinates(int numDimensions) : base()
-    {
-        Dimensions = numDimensions;  
-    }
-
     public LineStringCoordinates(IList<Position> items) : base(items)
     {
-        Dimensions = 0;
-    }
-
-    public LineStringCoordinates(int numDimensions, IList<Position> positions) : base(positions)
-    {
-        Dimensions = numDimensions;
+        Dimensions = items.Count == 0 ? 0 : items[0].Dimensions;
     }
 
     public int Dimensions { get; private set; }

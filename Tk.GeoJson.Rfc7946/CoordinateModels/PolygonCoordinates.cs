@@ -10,19 +10,9 @@ public sealed class PolygonCoordinates : Collection<LinearRingCoordinates>, ICoo
         Dimensions = 0;    
     }
 
-    public PolygonCoordinates(int numDimensions) : base()
-    {
-        Dimensions = numDimensions;
-    }
-
     public PolygonCoordinates(IList<LinearRingCoordinates> items) : base(items)
     {
-        Dimensions = 0;
-    }
-
-    public PolygonCoordinates(int numDimensions, IList<LinearRingCoordinates> items) : base(items)
-    {
-        Dimensions = numDimensions;
+        Dimensions = items.Count == 0  ? 0 : items[0].Dimensions;
     }
 
     public int Dimensions { get; private set; }

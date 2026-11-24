@@ -15,13 +15,8 @@ namespace Tk.GeoJson.Rfc7946.Geometry;
 /// </list>
 /// </remarks>
 /// 
-public sealed class Polygon : GeoJsonObject, IGeoJsonGeometry
+public sealed class Polygon(PolygonCoordinates coordinates) : GeoJsonObject, IGeoJsonGeometry
 {
-    public Polygon(PolygonCoordinates coordinates)
-    {
-        Coordinates = coordinates;
-    }
-
     [JsonPropertyName("type")]
     public override GeoJsonObjectTypes Type => GeoJsonObjectTypes.Polygon;
 
@@ -30,5 +25,5 @@ public sealed class Polygon : GeoJsonObject, IGeoJsonGeometry
     /// </summary>
     [JsonPropertyName("coordinates")]
     [JsonPropertyOrder(2)]
-    public PolygonCoordinates Coordinates { get; }
+    public PolygonCoordinates Coordinates { get; } = coordinates;
 }

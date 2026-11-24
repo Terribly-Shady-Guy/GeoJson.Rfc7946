@@ -6,13 +6,8 @@ namespace Tk.GeoJson.Rfc7946.Geometry;
 /// <summary>
 /// A geometry GeoJSON type representing a single position.
 /// </summary>
-public sealed class Point : GeoJsonObject, IGeoJsonGeometry
+public sealed class Point(Position coordinates) : GeoJsonObject, IGeoJsonGeometry
 {
-    public Point(Position coordinates)
-    {
-        Coordinates = coordinates;
-    }
-
     [JsonPropertyName("type")]
     public override GeoJsonObjectTypes Type => GeoJsonObjectTypes.Point;
 
@@ -22,5 +17,5 @@ public sealed class Point : GeoJsonObject, IGeoJsonGeometry
     /// <remarks>Required; must be provided during object initialization.</remarks>
     [JsonPropertyName("coordinates")]
     [JsonPropertyOrder(2)]
-    public Position Coordinates { get; }
+    public Position Coordinates { get; } = coordinates;
 }

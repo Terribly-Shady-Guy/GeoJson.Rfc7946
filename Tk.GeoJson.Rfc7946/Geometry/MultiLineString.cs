@@ -6,13 +6,8 @@ namespace Tk.GeoJson.Rfc7946.Geometry;
 /// <summary>
 /// A geometry GeoJSON type representing a collection of LineStrings.
 /// </summary>
-public sealed class MultiLineString : GeoJsonObject, IGeoJsonGeometry
+public sealed class MultiLineString(IList<LineStringCoordinates> coordinates) : GeoJsonObject, IGeoJsonGeometry
 {
-    public MultiLineString(IList<LineStringCoordinates> coordinates)
-    {
-        Coordinates = coordinates;
-    }
-
     [JsonPropertyName("type")]
     public override GeoJsonObjectTypes Type => GeoJsonObjectTypes.MultiLineString;
 
@@ -21,5 +16,5 @@ public sealed class MultiLineString : GeoJsonObject, IGeoJsonGeometry
     /// </summary>
     [JsonPropertyName("coordinates")]
     [JsonPropertyOrder(2)]
-    public IList<LineStringCoordinates> Coordinates { get; }
+    public IList<LineStringCoordinates> Coordinates { get; } = coordinates;
 }

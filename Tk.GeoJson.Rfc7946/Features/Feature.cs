@@ -13,16 +13,12 @@ public readonly union FeatureIdentifier(string, double);
 /// </summary>
 /// <typeparam name="TGeometry">The type representing the Geometry property. Can be nullable.</typeparam>
 /// <typeparam name="TProperties">The type representing the Properties property. Can be nullable.</typeparam>
-public sealed class Feature<TGeometry, TProperties> : GeoJsonObject
+public sealed class Feature<TGeometry, TProperties>(
+    TGeometry geometry,
+    TProperties properties) : GeoJsonObject
     where TGeometry : IGeoJsonGeometry?
     where TProperties : class?
 {
-    public Feature(TGeometry geometry, TProperties properties)
-    {
-        Geometry = geometry;
-        Properties = properties;
-    }
-
     [JsonPropertyName("type")]
     public override GeoJsonObjectTypes Type => GeoJsonObjectTypes.Feature;
 
@@ -42,12 +38,12 @@ public sealed class Feature<TGeometry, TProperties> : GeoJsonObject
     /// </summary>
     [JsonPropertyName("geometry")]
     [JsonPropertyOrder(2)]
-    public TGeometry Geometry { get; }
+    public TGeometry Geometry { get; } = geometry;
 
     /// <summary>
     /// Represents the "properties" property in a feature. This will contain a user defined type that maps to the properties of the feature. This can be null if the feature has no properties.
     /// </summary>
     [JsonPropertyName("properties")]
     [JsonPropertyOrder(3)]
-    public TProperties Properties { get; }
+    public TProperties Properties { get; } = properties;
 }

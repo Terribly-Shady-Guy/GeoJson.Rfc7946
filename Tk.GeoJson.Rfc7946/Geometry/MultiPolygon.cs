@@ -6,13 +6,8 @@ namespace Tk.GeoJson.Rfc7946.Geometry;
 /// <summary>
 /// A geometry GeoJSON type representing a collection of polygons.
 /// </summary>
-public sealed class MultiPolygon : GeoJsonObject, IGeoJsonGeometry
+public sealed class MultiPolygon(IList<PolygonCoordinates> coordinates) : GeoJsonObject, IGeoJsonGeometry
 {
-    public MultiPolygon(IList<PolygonCoordinates> coordinates)
-    {
-        Coordinates = coordinates;
-    }
-
     [JsonPropertyName("type")]
     public override GeoJsonObjectTypes Type => GeoJsonObjectTypes.MultiPolygon;
 
@@ -21,5 +16,5 @@ public sealed class MultiPolygon : GeoJsonObject, IGeoJsonGeometry
     /// </summary>
     [JsonPropertyName("coordinates")]
     [JsonPropertyOrder(2)]
-    public IList<PolygonCoordinates> Coordinates { get; }
+    public IList<PolygonCoordinates> Coordinates { get; } = coordinates;
 }

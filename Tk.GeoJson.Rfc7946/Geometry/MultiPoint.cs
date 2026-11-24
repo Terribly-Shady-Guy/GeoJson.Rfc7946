@@ -6,13 +6,8 @@ namespace Tk.GeoJson.Rfc7946.Geometry;
 /// <summary>
 /// A geometry GeoJSON type representing a collection of positions.
 /// </summary>
-public sealed class MultiPoint : GeoJsonObject, IGeoJsonGeometry
+public sealed class MultiPoint(IList<Position> coordinates) : GeoJsonObject, IGeoJsonGeometry
 {
-    public MultiPoint(IEnumerable<Position> coordinates)
-    {
-        Coordinates = coordinates;
-    }
-
     [JsonPropertyName("type")]
     public override GeoJsonObjectTypes Type => GeoJsonObjectTypes.MultiPoint;
 
@@ -21,5 +16,5 @@ public sealed class MultiPoint : GeoJsonObject, IGeoJsonGeometry
     /// </summary>
     [JsonPropertyName("coordinates")]
     [JsonPropertyOrder(2)]
-    public IEnumerable<Position> Coordinates { get; }
+    public IList<Position> Coordinates { get; } = coordinates;
 }

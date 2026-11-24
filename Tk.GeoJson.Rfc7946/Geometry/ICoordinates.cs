@@ -1,4 +1,4 @@
-﻿namespace Tk.GeoJson.Rfc7946.CoordinateModels;
+﻿namespace Tk.GeoJson.Rfc7946.Geometry;
 
 public interface ICoordinates
 {

@@ -1,7 +1,7 @@
 ﻿using System.Text.Json.Serialization;
 using Tk.GeoJson.Rfc7946.Converters;
 
-namespace Tk.GeoJson.Rfc7946.CoordinateModels;
+namespace Tk.GeoJson.Rfc7946.Geometry;
 
 /// <summary>
 /// Represents an individual position in a geometry.

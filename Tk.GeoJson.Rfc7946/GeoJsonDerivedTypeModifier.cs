@@ -6,7 +6,7 @@ namespace Tk.GeoJson.Rfc7946;
 /// Applies <see cref="JsonPolymorphismOptions"/> contracts to the <see cref="JsonTypeInfo"/> for any user derived types from any <see cref="GeoJsonObject"/> type.
 /// The <see cref="JsonPolymorphismOptions"/> instance is source generated.
 /// </summary>
-public partial class GeoJsonDerivedTypeModifier
+public sealed partial class GeoJsonDerivedTypeModifier
 {
     private readonly GeoJsonDerivedTypesModifierOptions _options;
 

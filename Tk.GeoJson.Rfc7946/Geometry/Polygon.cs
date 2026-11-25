@@ -14,10 +14,10 @@ namespace Tk.GeoJson.Rfc7946.Geometry;
 /// </list>
 /// </remarks>
 /// 
-public sealed class Polygon(PolygonCoordinates coordinates) : GeoJsonObject, IGeoJsonGeometry
+public class Polygon(PolygonCoordinates coordinates) : GeoJsonObject, IGeoJsonGeometry
 {
     [JsonPropertyName("type")]
-    public override GeoJsonObjectTypes Type => GeoJsonObjectTypes.Polygon;
+    public sealed override GeoJsonObjectTypes Type => GeoJsonObjectTypes.Polygon;
 
     /// <summary>
     /// Represents the "coordinates" property in a GeoJSON geometry object. For a "Polygon" type, it will contain an array of linear rings.

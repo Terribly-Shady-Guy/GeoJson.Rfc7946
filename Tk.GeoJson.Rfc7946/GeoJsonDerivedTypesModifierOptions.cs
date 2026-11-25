@@ -3,7 +3,7 @@
 namespace Tk.GeoJson.Rfc7946;
 
 /// <summary>
-/// Configuration for <see cref="GeoJsonDerivedTypeModifier"/> to modify polymorphism behavior for types extending GeoJSON types.
+/// Configuration for <see cref="GeoJsonDerivedTypesModifier"/> to modify polymorphism behavior for types extending GeoJSON types.
 /// </summary>
 public sealed class GeoJsonDerivedTypesModifierOptions
 {

@@ -10,17 +10,8 @@ public sealed class GeoJsonPolymorphismOptions
         TypeDiscriminatorPropertyName = "$type";
     }
 
-    public GeoJsonPolymorphismOptions(GeoJsonPolymorphismOptions options)
-    {
-        TypeDiscriminatorPropertyName = options.TypeDiscriminatorPropertyName;
-        IgnoreUnrecognizedTypeDiscriminators = options.IgnoreUnrecognizedTypeDiscriminators;
-        UnknownDerivedTypeHandling = options.UnknownDerivedTypeHandling;
-    }
-
     public string TypeDiscriminatorPropertyName { get; set; }
-
     public bool IgnoreUnrecognizedTypeDiscriminators { get; set; }
-
     public JsonUnknownDerivedTypeHandling UnknownDerivedTypeHandling { get; set; }
 
     internal JsonPolymorphismOptions CreateJsonPolymorphismOptions()

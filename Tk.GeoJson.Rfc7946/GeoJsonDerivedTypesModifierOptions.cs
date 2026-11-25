@@ -1,25 +1,21 @@
-﻿namespace Tk.GeoJson.Rfc7946;
+﻿using System.Text.Json.Serialization;
+
+namespace Tk.GeoJson.Rfc7946;
 
 /// <summary>
 /// Configuration for <see cref="GeoJsonDerivedTypeModifier"/> to modify polymorphism behavior for types extending GeoJSON types.
 /// </summary>
 public sealed class GeoJsonDerivedTypesModifierOptions
 {
-    public GeoJsonPolymorphismOptions GlobalOptions 
-    {
-        get
-        {
-            field ??= new GeoJsonPolymorphismOptions();
-            return field;
-        } 
-        set; 
-    }
+    public string GlobalTypeDiscriminatorPropertyName { get; set; } = "$type";
+    public bool GloballyIgnoreUnrecognizedTypeDiscriminators { get; set; }
+    public JsonUnknownDerivedTypeHandling GlobalUnknownDerivedTypeHandling { get; set; }
 
     public GeoJsonPolymorphismOptions PointOptions
     {
         get
         {
-            field ??= new GeoJsonPolymorphismOptions(GlobalOptions);
+            field ??= CreateDefaultOptions();
             return field;
         }
         set;
@@ -29,7 +25,7 @@ public sealed class GeoJsonDerivedTypesModifierOptions
     {
         get
         {
-            field ??= new GeoJsonPolymorphismOptions(GlobalOptions);
+            field ??= CreateDefaultOptions();
             return field;
         } 
         set; 
@@ -39,7 +35,7 @@ public sealed class GeoJsonDerivedTypesModifierOptions
     {
         get
         {
-            field ??= new GeoJsonPolymorphismOptions(GlobalOptions);
+            field ??= CreateDefaultOptions();
             return field;
         }
         set; 
@@ -49,7 +45,7 @@ public sealed class GeoJsonDerivedTypesModifierOptions
     {
         get
         {
-            field ??= new GeoJsonPolymorphismOptions(GlobalOptions);
+            field ??= CreateDefaultOptions();
             return field;
         }
         set; 
@@ -59,7 +55,7 @@ public sealed class GeoJsonDerivedTypesModifierOptions
     {
         get
         {
-            field ??= new GeoJsonPolymorphismOptions(GlobalOptions);
+            field ??= CreateDefaultOptions();
             return field;
         } 
         set; 
@@ -69,7 +65,7 @@ public sealed class GeoJsonDerivedTypesModifierOptions
     {
         get
         {
-            field ??= new GeoJsonPolymorphismOptions(GlobalOptions);
+            field ??= CreateDefaultOptions();
             return field;
         } 
         set; 
@@ -79,7 +75,7 @@ public sealed class GeoJsonDerivedTypesModifierOptions
     {
         get
         {
-            field ??= new GeoJsonPolymorphismOptions(GlobalOptions);
+            field ??= CreateDefaultOptions();
             return field;
         } 
         set; 
@@ -89,7 +85,7 @@ public sealed class GeoJsonDerivedTypesModifierOptions
     {
         get
         {
-            field ??= new GeoJsonPolymorphismOptions(GlobalOptions);
+            field ??= CreateDefaultOptions();
             return field;
         } 
         set; 
@@ -99,9 +95,19 @@ public sealed class GeoJsonDerivedTypesModifierOptions
     {
         get
         {
-            field ??= new GeoJsonPolymorphismOptions(GlobalOptions);
+            field ??= CreateDefaultOptions();
             return field;
         } 
         set; 
+    }
+
+    private GeoJsonPolymorphismOptions CreateDefaultOptions()
+    {
+        return new GeoJsonPolymorphismOptions
+        {
+            TypeDiscriminatorPropertyName = GlobalTypeDiscriminatorPropertyName,
+            UnknownDerivedTypeHandling = GlobalUnknownDerivedTypeHandling,
+            IgnoreUnrecognizedTypeDiscriminators = GloballyIgnoreUnrecognizedTypeDiscriminators
+        };
     }
 }

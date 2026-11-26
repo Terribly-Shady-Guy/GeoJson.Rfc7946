@@ -7,7 +7,7 @@ namespace Tk.GeoJson.Rfc7946;
 /// </summary>
 public abstract partial class GeoJsonDerivedTypesModifierBase
 {
-    protected GeoJsonPolymorphismOptions Options { get; }
+    protected GeoJsonPolymorphismOptions Options { get; private set; }
 
     /// <summary>
     /// Initializes a new instance of <see cref="GeoJsonDerivedTypesModifierBase"/> using default options.

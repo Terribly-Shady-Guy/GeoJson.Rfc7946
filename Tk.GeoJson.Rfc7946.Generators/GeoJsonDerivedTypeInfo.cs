@@ -2,14 +2,12 @@
 
 internal readonly record struct GeoJsonDerivedTypeInfo
 {
-    public GeoJsonDerivedTypeInfo(string geoJsonType, string className, string baseTypeName)
+    public GeoJsonDerivedTypeInfo(string derivedClassName, string geoJsonBaseTypeName)
     {
-        GeoJsonType = geoJsonType;
-        ClassName = className;
-        BaseTypeName = baseTypeName;
+        DerivedClassName = derivedClassName;
+        GeoJsonBaseTypeName = geoJsonBaseTypeName;
     }
 
-    public string GeoJsonType { get; }
-    public string ClassName { get; }
-    public string BaseTypeName { get; }
+    public string DerivedClassName { get; }
+    public string GeoJsonBaseTypeName { get; }
 }

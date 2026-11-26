@@ -4,7 +4,7 @@ using System.Collections.Immutable;
 namespace Tk.GeoJson.Rfc7946.Generators;
 
 [Generator]
-internal sealed class GeoJsonPolymorphicTypeInfoResolverGenerator : IIncrementalGenerator
+internal sealed class GeoJsonPolymorphismContractGenerator : IIncrementalGenerator
 {
     public void Initialize(IncrementalGeneratorInitializationContext context)
     {

@@ -1,9 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.ObjectModel;
 
-namespace Tk.GeoJson.Rfc7946.Geometry;
+namespace Tk.GeoJson.Rfc7946;
 
-public sealed class PolygonCoordinates : Collection<LinearRingCoordinates>, ICoordinates
+public sealed class PolygonCoordinates : Collection<LinearRingCoordinates>, ICoordinatesCollection
 {
     public PolygonCoordinates() : base()
     {

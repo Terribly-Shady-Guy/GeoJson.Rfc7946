@@ -1,7 +1,7 @@
 ﻿using System.Text.Json.Serialization;
 using Tk.GeoJson.Rfc7946.Converters;
 
-namespace Tk.GeoJson.Rfc7946.Geometry;
+namespace Tk.GeoJson.Rfc7946;
 
 /// <summary>
 /// Represents an individual position in a geometry.
@@ -13,7 +13,7 @@ namespace Tk.GeoJson.Rfc7946.Geometry;
 public readonly record struct Position(
     double Longitude,
     double Latitude,
-    double? Altitude = null) : ICoordinates
+    double? Altitude = null)
 {
     public int Dimensions => Altitude != null ? 3 : 2;
 

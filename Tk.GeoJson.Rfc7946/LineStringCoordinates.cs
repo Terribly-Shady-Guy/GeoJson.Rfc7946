@@ -1,21 +1,21 @@
 ﻿using System.Collections.ObjectModel;
 
-namespace Tk.GeoJson.Rfc7946.Geometry;
+namespace Tk.GeoJson.Rfc7946;
 
-public sealed class LinearRingCoordinates : Collection<Position>, ICoordinates
+public sealed class LineStringCoordinates : Collection<Position>, ICoordinatesCollection
 {
-    public LinearRingCoordinates() : base()
+    public LineStringCoordinates() : base()
     {
         Dimensions = 0;
     }
 
-    public LinearRingCoordinates(IList<Position> items) : base(items)
+    public LineStringCoordinates(IList<Position> items) : base(items)
     {
         Dimensions = items.Count == 0 ? 0 : items[0].Dimensions;
     }
 
     public int Dimensions { get; private set; }
-    internal bool IsValidLinearRing => Count >= 4 && Items[0] == Items[^1];
+    internal bool IsValidLineString => Count < 2;
 
     protected override void InsertItem(int index, Position item)
     {
@@ -24,7 +24,7 @@ public sealed class LinearRingCoordinates : Collection<Position>, ICoordinates
             Dimensions = item.Dimensions;
         }
 
-        ThrowArgumentExceptionOnMismatchedDimensions(item);
+        ThrowArgumentExceptionIfMismatchedDimensions(item);
         base.InsertItem(index, item);
     }
 
@@ -35,15 +35,15 @@ public sealed class LinearRingCoordinates : Collection<Position>, ICoordinates
             Dimensions = item.Dimensions;
         }
 
-        ThrowArgumentExceptionOnMismatchedDimensions(item);
+        ThrowArgumentExceptionIfMismatchedDimensions(item);
         base.SetItem(index, item);
     }
 
-    private void ThrowArgumentExceptionOnMismatchedDimensions(Position item)
+    private void ThrowArgumentExceptionIfMismatchedDimensions(Position item)
     {
         if (item.Dimensions != Dimensions)
         {
-            throw new ArgumentException($"The Linear ring only allows {Dimensions} dimensions, got {item.Dimensions} dimensions.", nameof(item));
+            throw new ArgumentException($"Instance only allows {Dimensions} dimensions, got {item.Dimensions} dimensions.", nameof(item));
         }
     }
 }

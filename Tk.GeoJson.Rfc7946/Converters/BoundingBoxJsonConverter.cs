@@ -4,11 +4,11 @@ using System.Text.Json.Serialization;
 namespace Tk.GeoJson.Rfc7946.Converters;
 
 /// <summary>
-/// A <see cref="JsonConverter"/> that is responsible for converting an <see cref="IBoundingBox"/> to and from a JSON array.
+/// A <see cref="JsonConverter"/> that is responsible for converting an <see cref="BoundingBox"/> to and from a JSON array.
 /// </summary>
-public sealed class BoundingBoxJsonConverter : JsonConverter<IBoundingBox>
+public sealed class BoundingBoxJsonConverter : JsonConverter<BoundingBox>
 {
-    public override IBoundingBox Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+    public override BoundingBox Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
     {
         if (reader.TokenType != JsonTokenType.StartArray)
         {
@@ -51,7 +51,7 @@ public sealed class BoundingBoxJsonConverter : JsonConverter<IBoundingBox>
         };
     }
 
-    public override void Write(Utf8JsonWriter writer, IBoundingBox value, JsonSerializerOptions options)
+    public override void Write(Utf8JsonWriter writer, BoundingBox value, JsonSerializerOptions options)
     {
         ThreeDimensionalBoundingBox? box3D = value as ThreeDimensionalBoundingBox;
         writer.WriteStartArray();

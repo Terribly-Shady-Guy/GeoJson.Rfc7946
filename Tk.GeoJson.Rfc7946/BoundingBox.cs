@@ -7,7 +7,7 @@ namespace Tk.GeoJson.Rfc7946;
 /// Represents a bounding box for a GeoJSON type.
 /// </summary>
 [JsonConverter(typeof(BoundingBoxJsonConverter))]
-public interface IBoundingBox
+public closed class BoundingBox
 {
     public double West { get; set; }
     public double South { get; set; }

@@ -10,25 +10,10 @@ public sealed class BoundingBoxJsonConverter : JsonConverter<BoundingBox>
 {
     public override BoundingBox Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
     {
-        if (reader.TokenType != JsonTokenType.StartArray)
-        {
-            throw new JsonException("bbox must be an array.");
-        }
+        double[] bbox = JsonSerializer.Deserialize<double[]>(ref reader, options)
+            ?? throw new JsonException("bbox returned null.");
 
-        double[]? bbox = JsonSerializer.Deserialize<double[]>(ref reader, options);
-        if (bbox == null)
-        {
-            throw new JsonException("bbox returned null.");
-        }
-
-        try
-        {
-            return new BoundingBox(bbox);
-        }
-        catch (ArgumentException ex)
-        {
-            throw new JsonException("The bounding box array is invalid.", ex);
-        }
+        return new BoundingBox(bbox);
     }
 
     public override void Write(Utf8JsonWriter writer, BoundingBox value, JsonSerializerOptions options)

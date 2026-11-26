@@ -15,7 +15,7 @@ public sealed class LineStringCoordinates : Collection<Position>, ICoordinatesCo
     }
 
     public int Dimensions { get; private set; }
-    internal bool IsValidLineString => Count < 2;
+    public bool IsValid => Count < 2;
 
     protected override void InsertItem(int index, Position item)
     {
@@ -24,7 +24,6 @@ public sealed class LineStringCoordinates : Collection<Position>, ICoordinatesCo
             Dimensions = item.Dimensions;
         }
 
-        ThrowArgumentExceptionIfMismatchedDimensions(item);
         base.InsertItem(index, item);
     }
 
@@ -35,15 +34,6 @@ public sealed class LineStringCoordinates : Collection<Position>, ICoordinatesCo
             Dimensions = item.Dimensions;
         }
 
-        ThrowArgumentExceptionIfMismatchedDimensions(item);
         base.SetItem(index, item);
-    }
-
-    private void ThrowArgumentExceptionIfMismatchedDimensions(Position item)
-    {
-        if (item.Dimensions != Dimensions)
-        {
-            throw new ArgumentException($"Instance only allows {Dimensions} dimensions, got {item.Dimensions} dimensions.", nameof(item));
-        }
     }
 }

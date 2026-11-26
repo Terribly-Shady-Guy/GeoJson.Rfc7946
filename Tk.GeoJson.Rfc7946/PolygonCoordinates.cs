@@ -19,6 +19,8 @@ public sealed class PolygonCoordinates : Collection<LinearRingCoordinates>, ICoo
     public LinearRingCoordinates ExteriorRing => Items[0];
     public InteriorRingsCollection Holes => new(Items);
 
+    public bool IsValid => throw new NotImplementedException();
+
     protected override void InsertItem(int index, LinearRingCoordinates item)
     {
         if (Dimensions == 0)
@@ -26,7 +28,6 @@ public sealed class PolygonCoordinates : Collection<LinearRingCoordinates>, ICoo
             Dimensions = item.Dimensions;
         }
 
-        ThrowArgumentExceptionOnMismatchedDimensions(item);
         base.InsertItem(index, item);
     }
 
@@ -37,16 +38,7 @@ public sealed class PolygonCoordinates : Collection<LinearRingCoordinates>, ICoo
             Dimensions = item.Dimensions;
         }
 
-        ThrowArgumentExceptionOnMismatchedDimensions(item);
         base.SetItem(index, item);
-    }
-
-    private void ThrowArgumentExceptionOnMismatchedDimensions(LinearRingCoordinates item)
-    {
-        if (item.Dimensions != Dimensions)
-        {
-            throw new ArgumentException($"This Polygon only allows {Dimensions} dimensions, got {item.Dimensions} instead.", nameof(item));
-        }
     }
 }
 

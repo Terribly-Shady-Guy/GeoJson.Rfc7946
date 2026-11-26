@@ -39,7 +39,7 @@ public sealed class PositionJsonConverter : JsonConverter<Position>
                     altitude = reader.GetDouble();
                     break;
                 default:
-                    throw new JsonException("Unexpected element in Position array.");
+                    continue;
             }
 
             position++;

@@ -5,7 +5,7 @@ namespace Tk.GeoJson.Rfc7946;
 /// <summary>
 /// Applies the generated polymorphism contracts to the <see cref="JsonTypeInfo"/> for any user derived types from any <see cref="GeoJsonObject"/> type.
 /// </summary>
-public abstract partial class GeoJsonDerivedTypesModifierBase
+public abstract class GeoJsonDerivedTypesModifierBase
 {
     protected GeoJsonPolymorphismOptions Options { get; private set; }
 

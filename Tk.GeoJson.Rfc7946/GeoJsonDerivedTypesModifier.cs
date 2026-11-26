@@ -38,4 +38,3 @@ public sealed partial class GeoJsonDerivedTypesModifier
 
     partial void ApplyImpl(JsonTypeInfo typeInfo);
 }
-

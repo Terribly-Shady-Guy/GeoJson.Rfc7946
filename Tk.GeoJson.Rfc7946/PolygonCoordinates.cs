@@ -6,18 +6,8 @@ public sealed class PolygonCoordinates(IList<LinearRingCoordinates> items)
     : IReadOnlyList<LinearRingCoordinates>, ICoordinatesCollection
 {
     private readonly IList<LinearRingCoordinates> _items = items;
-    public LinearRingCoordinates this[int index]
-    {
-        get
-        {
-            if (index < 0 || index >= _items.Count)
-            {
-                throw new ArgumentException($"Index {index} is out of range.", nameof(index));
-            }
 
-            return _items[index];
-        }
-    }
+    public LinearRingCoordinates this[int index] => _items[index];
 
     public int Dimensions => _items.Count == 0 ? 0 : _items[0].Dimensions;
     public LinearRingCoordinates ExteriorRing => _items[0];

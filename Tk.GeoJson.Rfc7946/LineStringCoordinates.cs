@@ -17,18 +17,7 @@ public class LineStringCoordinates : IReadOnlyList<Position>, ICoordinatesCollec
         _items = items;
     }
 
-    public Position this[int index]
-    {
-        get
-        {
-            if (index < 0 || index >= _items.Count)
-            {
-                throw new ArgumentOutOfRangeException(nameof(index), $"Index {index} is out of range.");
-            }
-
-            return _items[index];
-        }
-    }
+    public Position this[int index] => _items[index];
 
     public int Dimensions { get; }
 

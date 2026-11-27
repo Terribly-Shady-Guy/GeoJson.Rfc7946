@@ -35,18 +35,7 @@ public sealed class BoundingBox : IReadOnlyList<double>
         : this([west, south, minAltitude, east, north, maxAltitude])
     {}
 
-    public double this[int index]
-    {
-        get
-        {
-            if (index < 0 || index >= _items.Count)
-            {
-                throw new ArgumentException($"Index {index} is out of range.", nameof(index));
-            }
-
-            return _items[index];
-        }
-    }
+    public double this[int index] => _items[index];
 
     public int Dimensions => _items.Count / 2;
     public int Count => _items.Count;

@@ -12,8 +12,18 @@ public sealed class BoundingBox : IReadOnlyList<double>
 {
     private readonly IList<double> _items;
 
-    internal BoundingBox(IList<double> bbox)
+    public BoundingBox(IList<double> bbox)
     {
+        if (bbox.Count < 4)
+        {
+            throw new ArgumentException("bbox must have at least 4 elements.", nameof(bbox));
+        }
+
+        if (bbox.Count % 2 != 0)
+        {
+            throw new ArgumentException("bbox must contain an even number of elements.", nameof(bbox));
+        }
+
         _items = bbox;
     }
 
@@ -47,22 +57,6 @@ public sealed class BoundingBox : IReadOnlyList<double>
     public double East => Dimensions == 2 ? _items[2] : _items[3];
     public double North => Dimensions == 2 ? _items[3] : _items[4];
     public double? MaxAltitude => Dimensions == 3 ? _items[5] : null;
-
-
-    public static BoundingBox CreateFromArray(double[] bbox)
-    {
-        if (bbox.Length < 4)
-        {
-            throw new ArgumentException("bbox must have at least 4 elements.", nameof(bbox));
-        }
-
-        if (bbox.Length % 2 != 0)
-        {
-            throw new ArgumentException("bbox must contain an even number of elements.", nameof(bbox));
-        }
-
-        return new BoundingBox(bbox);
-    }
 
     public IEnumerator<double> GetEnumerator()
     {

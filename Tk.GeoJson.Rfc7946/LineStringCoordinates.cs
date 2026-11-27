@@ -1,39 +1,46 @@
-﻿using System.Collections.ObjectModel;
+﻿using System.Collections;
 
 namespace Tk.GeoJson.Rfc7946;
 
-public sealed class LineStringCoordinates : Collection<Position>, ICoordinatesCollection
+public class LineStringCoordinates : IReadOnlyList<Position>, ICoordinatesCollection
 {
-    public LineStringCoordinates() : base()
-    {
-        Dimensions = 0;
-    }
+    private readonly IList<Position> _items;
 
-    public LineStringCoordinates(IList<Position> items) : base(items)
+    public LineStringCoordinates(IList<Position> items)
     {
+        if (items.Count < 2)
+        {
+            throw new ArgumentException("A valid LineString must conatin at least 2 positions.");
+        }
+
         Dimensions = items.Count == 0 ? 0 : items[0].Dimensions;
+        _items = items;
     }
 
-    public int Dimensions { get; private set; }
-    public bool IsValid => Count < 2;
-
-    protected override void InsertItem(int index, Position item)
+    public Position this[int index]
     {
-        if (Dimensions == 0)
+        get
         {
-            Dimensions = item.Dimensions;
-        }
+            if (index < 0 || index >= _items.Count)
+            {
+                throw new ArgumentOutOfRangeException(nameof(index), $"Index {index} is out of range.");
+            }
 
-        base.InsertItem(index, item);
+            return _items[index];
+        }
     }
 
-    protected override void SetItem(int index, Position item)
-    {
-        if (Dimensions == 0)
-        {
-            Dimensions = item.Dimensions;
-        }
+    public int Dimensions { get; }
 
-        base.SetItem(index, item);
+    public int Count => _items.Count;
+
+    public IEnumerator<Position> GetEnumerator()
+    {
+        return _items.GetEnumerator();
+    }
+
+    IEnumerator IEnumerable.GetEnumerator()
+    {
+        return GetEnumerator();
     }
 }

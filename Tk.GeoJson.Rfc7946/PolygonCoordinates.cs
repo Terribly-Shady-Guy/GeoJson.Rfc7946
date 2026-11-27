@@ -1,44 +1,38 @@
 ﻿using System.Collections;
-using System.Collections.ObjectModel;
 
 namespace Tk.GeoJson.Rfc7946;
 
-public sealed class PolygonCoordinates : Collection<LinearRingCoordinates>, ICoordinatesCollection
+public sealed class PolygonCoordinates(IList<LinearRingCoordinates> items) 
+    : IReadOnlyList<LinearRingCoordinates>, ICoordinatesCollection
 {
-    public PolygonCoordinates() : base()
+    private readonly IList<LinearRingCoordinates> _items = items;
+    public LinearRingCoordinates this[int index]
     {
-        Dimensions = 0;    
-    }
-
-    public PolygonCoordinates(IList<LinearRingCoordinates> items) : base(items)
-    {
-        Dimensions = items.Count == 0  ? 0 : items[0].Dimensions;
-    }
-
-    public int Dimensions { get; private set; }
-    public LinearRingCoordinates ExteriorRing => Items[0];
-    public InteriorRingsCollection Holes => new(Items);
-
-    public bool IsValid => throw new NotImplementedException();
-
-    protected override void InsertItem(int index, LinearRingCoordinates item)
-    {
-        if (Dimensions == 0)
+        get
         {
-            Dimensions = item.Dimensions;
-        }
+            if (index < 0 || index >= _items.Count)
+            {
+                throw new ArgumentException($"Index {index} is out of range.", nameof(index));
+            }
 
-        base.InsertItem(index, item);
+            return _items[index];
+        }
     }
 
-    protected override void SetItem(int index, LinearRingCoordinates item)
-    {
-        if (Dimensions == 0)
-        {
-            Dimensions = item.Dimensions;
-        }
+    public int Dimensions => _items.Count == 0 ? 0 : _items[0].Dimensions;
+    public LinearRingCoordinates ExteriorRing => _items[0];
+    public InteriorRingsCollection Holes => new(_items);
 
-        base.SetItem(index, item);
+    public int Count => _items.Count;
+
+    public IEnumerator<LinearRingCoordinates> GetEnumerator()
+    {
+        return _items.GetEnumerator();
+    }
+
+    IEnumerator IEnumerable.GetEnumerator()
+    {
+        return GetEnumerator();
     }
 }
 

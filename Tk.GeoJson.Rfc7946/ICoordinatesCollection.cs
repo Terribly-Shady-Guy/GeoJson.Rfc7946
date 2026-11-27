@@ -3,5 +3,4 @@
 public interface ICoordinatesCollection
 {
     public int Dimensions { get; }
-    public bool IsValid { get; }
 }

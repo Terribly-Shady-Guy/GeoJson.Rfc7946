@@ -13,6 +13,16 @@ public sealed class BoundingBoxJsonConverter : JsonConverter<BoundingBox>
         double[] bbox = JsonSerializer.Deserialize<double[]>(ref reader, options)
             ?? throw new JsonException("bbox returned null.");
 
+        if (bbox.Length < 4)
+        {
+            throw new JsonException("A bbox array must contain at least 4 elements.");
+        }
+
+        if (bbox.Length % 2 != 0)
+        {
+            throw new JsonException("A bbox array must have an even number of elements.");
+        }
+
         return new BoundingBox(bbox);
     }
 

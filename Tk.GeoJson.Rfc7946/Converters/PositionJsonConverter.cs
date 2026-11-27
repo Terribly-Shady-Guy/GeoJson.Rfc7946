@@ -27,6 +27,11 @@ public sealed class PositionJsonConverter : JsonConverter<Position>
 
         while (reader.Read() && reader.TokenType != JsonTokenType.EndArray)
         {
+            if (reader.TokenType != JsonTokenType.Number)
+            {
+                throw new JsonException("A value in position array is not a number.");
+            }
+
             switch (position)
             {
                 case LongitudeIndex:

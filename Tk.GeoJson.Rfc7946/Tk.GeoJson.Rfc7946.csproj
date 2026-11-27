@@ -13,9 +13,10 @@
 		<Description>A Library for modeling rfc 7946 GeoJSON types.</Description>
 		<RepositoryUrl>https://github.com/Tk2241/GeoJson.Rfc7946</RepositoryUrl>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<PackageTags>GeoJSON</PackageTags>
 	</PropertyGroup>
 
 	<ItemGroup>
-		<None Include="../README.md" Pack="true" PackagePath="\"/>
+		<None Include="../README.md" Pack="true" PackagePath="\" />
 	</ItemGroup>
 </Project>

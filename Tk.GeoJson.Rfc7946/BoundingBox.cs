@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿using System.Collections.ObjectModel;
 using System.Text.Json.Serialization;
 using Tk.GeoJson.Rfc7946.Converters;
 
@@ -8,24 +8,10 @@ namespace Tk.GeoJson.Rfc7946;
 /// Represents a bounding box for a GeoJSON type.
 /// </summary>
 [JsonConverter(typeof(BoundingBoxJsonConverter))]
-public sealed class BoundingBox : IReadOnlyList<double>
+public sealed class BoundingBox : ReadOnlyCollection<double>
 {
-    private readonly double[] _bbox;
-
-    public BoundingBox(double[] bbox)
-    {
-        if (bbox.Length < 4)
-        {
-            throw new ArgumentException("A valid bbox array must have at least 4 elements.");
-        }
-
-        if (bbox.Length % 2 != 0)
-        {
-            throw new ArgumentException("A valid bbox array must have an even number of elements.");
-        }
-
-        _bbox = bbox;
-    }
+    internal BoundingBox(double[] bbox) : base(bbox)
+    {}
 
     public BoundingBox(double west, double south, double east, double north) 
         : this([west, south, east, north])
@@ -35,39 +21,27 @@ public sealed class BoundingBox : IReadOnlyList<double>
         : this([west, south, minAltitude, east, north, maxAltitude])
     {}
 
-    public double this[int index]
+    public int Dimensions => Items.Count / 2;
+
+    public double West => Items[0];
+    public double South => Items[1];
+    public double? MinAltitude => Dimensions == 3 ? Items[2] : null;
+    public double East => Dimensions == 2 ? Items[2] : Items[3];
+    public double North => Dimensions == 2 ? Items[3] : Items[4];
+    public double? MaxAltitude => Dimensions == 3 ? Items[5] : null;
+
+    public static BoundingBox CreateFromArray(double[] bbox)
     {
-        get
+        if (bbox.Length < 4)
         {
-            if (index < 0 || index >= _bbox.Length)
-            {
-                throw new ArgumentOutOfRangeException(nameof(index), $"Index {index} is out of range.");
-            }
-
-            return _bbox[index];
+            throw new ArgumentException("bbox must have at least 4 elements.", nameof(bbox));
         }
-    }
 
-    public int Dimensions => _bbox.Length / 2;
-    public int Count => _bbox.Length;
-
-    public double West => _bbox[0];
-    public double South => _bbox[1];
-    public double? MinAltitude => Dimensions == 3 ? _bbox[2] : null;
-    public double East => Dimensions == 2 ? _bbox[2] : _bbox[3];
-    public double North => Dimensions == 2 ? _bbox[3] : _bbox[4];
-    public double? MaxAltitude => Dimensions == 3 ? _bbox[5] : null;
-
-    public IEnumerator<double> GetEnumerator()
-    {
-        foreach (double value in _bbox)
+        if (bbox.Length % 2 != 0)
         {
-            yield return value;
+            throw new ArgumentException("bbox must contain an even number of elements.", nameof(bbox));
         }
-    }
 
-    IEnumerator IEnumerable.GetEnumerator()
-    {
-        return GetEnumerator();
+        return new BoundingBox(bbox);
     }
 }

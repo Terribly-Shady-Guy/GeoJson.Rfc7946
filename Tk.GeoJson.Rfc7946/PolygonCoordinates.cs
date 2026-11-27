@@ -10,7 +10,7 @@ public sealed class PolygonCoordinates(IList<LinearRingCoordinates> items)
     public LinearRingCoordinates this[int index] => _items[index];
     public int Count => _items.Count;
 
-    public int Dimensions => _items.Count == 0 ? 0 : _items[0].Dimensions;
+    public int Dimensions { get; } = items.Count == 0 ? 0 : items[0].Dimensions;
     public LinearRingCoordinates ExteriorRing => _items[0];
     public InteriorRingsCollection Holes => new(_items);
 

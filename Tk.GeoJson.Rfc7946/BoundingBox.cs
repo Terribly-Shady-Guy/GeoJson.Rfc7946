@@ -27,6 +27,14 @@ public sealed class BoundingBox : IReadOnlyList<double>
         _bbox = bbox;
     }
 
+    public BoundingBox(double west, double south, double east, double north) 
+        : this([west, south, east, north])
+    {}
+
+    public BoundingBox(double west, double south, double east, double north, double minAltitude, double maxAltitude)
+        : this([west, south, minAltitude, east, north, maxAltitude])
+    {}
+
     public double this[int index]
     {
         get
@@ -61,17 +69,5 @@ public sealed class BoundingBox : IReadOnlyList<double>
     IEnumerator IEnumerable.GetEnumerator()
     {
         return GetEnumerator();
-    }
-
-    public static BoundingBox Create(double west, double south, double east, double north)
-    {
-        double[] bbox = [west, south, east, north];
-        return new BoundingBox(bbox);
-    }
-
-    public static BoundingBox Create(double west, double south, double east, double north, double minAltitude, double maxAltitude)
-    {
-        double[] bbox = [west, south, minAltitude, east, north, maxAltitude];
-        return new BoundingBox(bbox);
     }
 }

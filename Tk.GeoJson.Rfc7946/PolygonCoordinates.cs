@@ -8,12 +8,11 @@ public sealed class PolygonCoordinates(IList<LinearRingCoordinates> items)
     private readonly IList<LinearRingCoordinates> _items = items;
 
     public LinearRingCoordinates this[int index] => _items[index];
+    public int Count => _items.Count;
 
     public int Dimensions => _items.Count == 0 ? 0 : _items[0].Dimensions;
     public LinearRingCoordinates ExteriorRing => _items[0];
     public InteriorRingsCollection Holes => new(_items);
-
-    public int Count => _items.Count;
 
     public IEnumerator<LinearRingCoordinates> GetEnumerator()
     {

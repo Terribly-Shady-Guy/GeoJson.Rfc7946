@@ -18,10 +18,9 @@ public class LineStringCoordinates : IReadOnlyList<Position>, ICoordinatesCollec
     }
 
     public Position this[int index] => _items[index];
+    public int Count => _items.Count;
 
     public int Dimensions { get; }
-
-    public int Count => _items.Count;
 
     public IEnumerator<Position> GetEnumerator()
     {

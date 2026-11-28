@@ -1,5 +1,9 @@
-﻿namespace Tk.GeoJson.Rfc7946;
+﻿using System.Text.Json.Serialization;
+using Tk.GeoJson.Rfc7946.Converters;
 
+namespace Tk.GeoJson.Rfc7946;
+
+[JsonConverter(typeof(LinearRingJsonConverter))]
 public sealed class LinearRingCoordinates : LineStringCoordinates
 {
     public LinearRingCoordinates(IList<Position> items) : base(items)

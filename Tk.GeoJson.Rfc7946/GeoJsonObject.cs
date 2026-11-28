@@ -47,5 +47,5 @@ public abstract class GeoJsonObject
     /// Rfc 7946 allows for nonstandard properties to be included in GeoJSON objects. This property will contain the unmapped properties or null if none exists.
     /// </summary>
     [JsonExtensionData]
-    public IDictionary<string, JsonElement>? UnmappedForeignMembers { get; set; } = null;
+    public IReadOnlyDictionary<string, JsonElement>? UnmappedForeignMembers { get; set; } = null;
 }

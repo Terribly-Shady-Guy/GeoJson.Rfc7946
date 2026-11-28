@@ -6,7 +6,7 @@ namespace Tk.GeoJson.Rfc7946;
 
 [JsonConverter(typeof(PolygonJsonConverter))]
 public sealed class PolygonCoordinates(IList<LinearRingCoordinates> items) 
-    : IReadOnlyList<LinearRingCoordinates>, ICoordinatesCollection
+    :  ICoordinatesCollection<LinearRingCoordinates>
 {
     private readonly IList<LinearRingCoordinates> _items = items;
 

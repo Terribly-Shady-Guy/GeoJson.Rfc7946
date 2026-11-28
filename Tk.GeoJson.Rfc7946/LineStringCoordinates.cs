@@ -5,7 +5,7 @@ using Tk.GeoJson.Rfc7946.Converters;
 namespace Tk.GeoJson.Rfc7946;
 
 [JsonConverter(typeof(LineStringJsonConverter))]
-public class LineStringCoordinates : IReadOnlyList<Position>, ICoordinatesCollection
+public class LineStringCoordinates : ICoordinatesCollection<Position>
 {
     private readonly IList<Position> _items;
 

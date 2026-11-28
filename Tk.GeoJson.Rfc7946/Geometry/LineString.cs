@@ -5,8 +5,13 @@ namespace Tk.GeoJson.Rfc7946.Geometry;
 /// <summary>
 /// A geometry GeoJSON type representing a sequence of positions.
 /// </summary>
-public class LineString(LineStringCoordinates coordinates) : GeoJsonObject, IGeoJsonGeometry
+public class LineString : GeoJsonObject, IGeoJsonGeometry
 {
+    public LineString(LineStringCoordinates coordinates, BoundingBox? bbox = null) : base(bbox)
+    {
+        Coordinates = coordinates;
+    }
+
     [JsonPropertyName("type")]
     public sealed override GeoJsonObjectTypes Type => GeoJsonObjectTypes.LineString;
 
@@ -15,5 +20,5 @@ public class LineString(LineStringCoordinates coordinates) : GeoJsonObject, IGeo
     /// </summary>
     [JsonPropertyName("coordinates")]
     [JsonPropertyOrder(2)]
-    public LineStringCoordinates Coordinates { get; } = coordinates;
+    public LineStringCoordinates Coordinates { get; }
 }

@@ -14,8 +14,13 @@ namespace Tk.GeoJson.Rfc7946.Geometry;
 /// </list>
 /// </remarks>
 /// 
-public class Polygon(PolygonCoordinates coordinates) : GeoJsonObject, IGeoJsonGeometry
+public class Polygon : GeoJsonObject, IGeoJsonGeometry
 {
+    public Polygon(PolygonCoordinates coordinates, BoundingBox? bbox = null) : base(bbox)
+    {
+        Coordinates = coordinates;
+    }
+
     [JsonPropertyName("type")]
     public sealed override GeoJsonObjectTypes Type => GeoJsonObjectTypes.Polygon;
 
@@ -24,5 +29,5 @@ public class Polygon(PolygonCoordinates coordinates) : GeoJsonObject, IGeoJsonGe
     /// </summary>
     [JsonPropertyName("coordinates")]
     [JsonPropertyOrder(2)]
-    public PolygonCoordinates Coordinates { get; } = coordinates;
+    public PolygonCoordinates Coordinates { get; }
 }

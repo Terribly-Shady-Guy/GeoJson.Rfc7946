@@ -8,11 +8,16 @@ namespace Tk.GeoJson.Rfc7946.Features;
 /// </summary>
 /// <typeparam name="TFeatureGeometry">The type used for each feature Geometry property. Can be nullable.</typeparam>
 /// <typeparam name="TFeatureProperties">The type used for each feature Properties property. Can be nullable.</typeparam>
-public class FeatureCollection<TFeatureGeometry, TFeatureProperties>(
-    IList<Feature<TFeatureGeometry, TFeatureProperties>> features) : GeoJsonObject
+public class FeatureCollection<TFeatureGeometry, TFeatureProperties> : GeoJsonObject
     where TFeatureGeometry : IGeoJsonGeometry?
     where TFeatureProperties : class?
 {
+    public FeatureCollection(IList<Feature<TFeatureGeometry, TFeatureProperties>> features, BoundingBox? bbox = null) 
+        : base(bbox)
+    {
+        Features = features;
+    }
+
     [JsonPropertyName("type")]
     public sealed override GeoJsonObjectTypes Type => GeoJsonObjectTypes.FeatureCollection;
 
@@ -21,5 +26,5 @@ public class FeatureCollection<TFeatureGeometry, TFeatureProperties>(
     /// </summary>
     [JsonPropertyName("features")]
     [JsonPropertyOrder(2)]
-    public IList<Feature<TFeatureGeometry, TFeatureProperties>> Features { get; } = features;
+    public IList<Feature<TFeatureGeometry, TFeatureProperties>> Features { get; }
 }

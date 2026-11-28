@@ -20,6 +20,11 @@ namespace Tk.GeoJson.Rfc7946;
 [JsonConverter(typeof(GeoJsonConverter))]
 public abstract class GeoJsonObject
 {
+    protected GeoJsonObject(BoundingBox? bbox)
+    {
+        BBox = bbox;
+    }
+
     /// <summary>
     /// Represents the "type" property in a GeoJSON object.
     /// </summary>
@@ -36,7 +41,7 @@ public abstract class GeoJsonObject
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     [JsonPropertyName("bbox")]
     [JsonPropertyOrder(1)]
-    public BoundingBox? BBox { get; set; } = null;
+    public BoundingBox? BBox { get; }
 
     /// <summary>
     /// Rfc 7946 allows for nonstandard properties to be included in GeoJSON objects. This property will contain the unmapped properties or null if none exists.

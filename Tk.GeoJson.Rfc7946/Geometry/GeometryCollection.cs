@@ -5,8 +5,13 @@ namespace Tk.GeoJson.Rfc7946.Geometry;
 /// <summary>
 /// A geometry GeoJSON type representing a collection of geometries.
 /// </summary>
-public class GeometryCollection(IList<IGeoJsonGeometry> geometries) : GeoJsonObject, IGeoJsonGeometry
+public class GeometryCollection : GeoJsonObject, IGeoJsonGeometry
 {
+    public GeometryCollection(IList<IGeoJsonGeometry> geometries, BoundingBox? bbox = null) : base(bbox)
+    {
+        Geometries = geometries;
+    }
+
     [JsonPropertyName("type")]
     public sealed override GeoJsonObjectTypes Type => GeoJsonObjectTypes.GeometryCollection;
 
@@ -15,5 +20,5 @@ public class GeometryCollection(IList<IGeoJsonGeometry> geometries) : GeoJsonObj
     /// </summary>
     [JsonPropertyName("geometries")]
     [JsonPropertyOrder(2)]
-    public IList<IGeoJsonGeometry> Geometries { get; } = geometries;
+    public IList<IGeoJsonGeometry> Geometries { get; }
 }

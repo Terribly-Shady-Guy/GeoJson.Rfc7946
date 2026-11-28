@@ -1,7 +1,10 @@
 ﻿using System.Collections;
+using System.Text.Json.Serialization;
+using Tk.GeoJson.Rfc7946.Converters;
 
 namespace Tk.GeoJson.Rfc7946;
 
+[JsonConverter(typeof(PolygonJsonConverter))]
 public sealed class PolygonCoordinates(IList<LinearRingCoordinates> items) 
     : IReadOnlyList<LinearRingCoordinates>, ICoordinatesCollection
 {
